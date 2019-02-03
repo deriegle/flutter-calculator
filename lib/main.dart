@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'calculator.dart';
 import 'number-display.dart';
 import 'calculator-buttons.dart';
+import 'history.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Calculator'),
+      initialRoute: '/',
+      routes: {
+        '/': (context)  => MyHomePage(title: 'Calculator'),
+        '/history': (context) => History(),
+      },
     );
   }
 }
@@ -39,6 +44,15 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
           centerTitle: false,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.history),
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => History(operations: operations))
+              ),
+            )
+          ],
         ),
         body: Column(
           children: <Widget>[
