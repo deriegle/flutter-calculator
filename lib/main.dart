@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'calculator-button.dart';
 import 'calculator.dart';
 import 'number-display.dart';
+import 'calculator-buttons.dart';
 
 void main() => runApp(MyApp());
 
@@ -43,37 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: <Widget>[
           NumberDisplay(value: calculatorString),
-          Column(
-            children: <Widget>[
-              _buildCalculatorRow(['7', '8', '9', Calculations.DIVIDE]),
-              _buildCalculatorRow(['4', '5', '6', Calculations.MULTIPLY]),
-              _buildCalculatorRow(['1', '2', '3', Calculations.SUBTRACT]),
-              _buildCalculatorRow(['.', '0', '00', Calculations.ADD]),
-              _buildCalculatorRow([Calculations.CLEAR, Calculations.EQUAL]),
-            ],
-          ),
+          CalculatorButtons(onTap: _onPressed),
         ],
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
       )
-    );
-  }
-
-  Widget _buildCalculatorRow(List<String> buttons) {
-    List<Widget> calculatorButtons = [];
-    buttons.forEach((String buttonText){
-      calculatorButtons.add(_buildCalculatorButton(buttonText));
-    });
-
-    return Row(
-      children: calculatorButtons,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-    );
-  }
-
-  CalculatorButton _buildCalculatorButton(String buttonText) {
-    return CalculatorButton(
-      onTap: _onPressed,
-      text: buttonText,
     );
   }
 
