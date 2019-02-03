@@ -25,7 +25,7 @@ class History extends StatelessWidget {
         return ListTile(
           title: Text(operations[i]),
           onTap: () {
-            print('Pressed ${operations[i]}');
+            Navigator.pop(context, operations[i]);
           },
         );
       },

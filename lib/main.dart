@@ -45,10 +45,9 @@ class _MyHomePageState extends State<MyHomePage> {
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.history),
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => History(operations: calculations))),
+              onPressed: () {
+                _navigateAndDisplayHistory(context);
+              },
             )
           ],
         ),
@@ -59,6 +58,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
         ));
+  }
+
+  _navigateAndDisplayHistory(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => History(operations: calculations))
+    );
+
+    if (result != null) {
+      setState(() {
+        isNewEquation = false;
+        calculatorString = _calculator.parseString(result);
+      });
+    }
   }
 
   void _onPressed({String buttonText}) {
