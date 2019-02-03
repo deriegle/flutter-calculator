@@ -79,6 +79,16 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
 
+    if (buttonText == '.') {
+      return setState(() {
+        if (calculatorString == '') {
+          calculatorString = '0.';
+        } else {
+          calculatorString += '.';
+        }
+      });
+    }
+
     setState(() {
       if (operations.length > 0 && operations.last == Calculations.EQUAL) {
         calculatorString = buttonText;

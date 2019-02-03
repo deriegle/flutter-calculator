@@ -1,3 +1,5 @@
+import 'number-formatter.dart';
+
 class Calculations {
   static const MULTIPLY = '*';
   static const SUBTRACT = '-';
@@ -55,6 +57,6 @@ class Calculator {
       return text;
     }
 
-    return result.toString();
+    return NumberFormatter.format(result.toString());
   }
 }
