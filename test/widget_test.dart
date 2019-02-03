@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:calculator/calculator.dart';
-import 'package:calculator/main.dart';
+import 'package:flutter_calculator/calculator.dart';
+import 'package:flutter_calculator/main.dart';
+import 'test_helper.dart';
 
 void main() {
   testWidgets('displays all the correct numbers', (WidgetTester tester) async {
@@ -26,13 +27,7 @@ void main() {
 
     String calculationString = '3 * 6 =';
     final String result = '18';
-    List<String> buttonsToPress = calculationString.replaceAll(' ', '').split('');
-
-    for (var buttonText in buttonsToPress) {
-      await tester.tap(find.text(buttonText));
-    }
-
-    await tester.pump();
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
 
     expect(find.text(result), findsOneWidget);
   });
@@ -42,13 +37,7 @@ void main() {
 
     String calculationString = '30 + 6 =';
     final String result = '36';
-    List<String> buttonsToPress = calculationString.replaceAll(' ', '').split('');
-
-    for (var buttonText in buttonsToPress) {
-      await tester.tap(find.text(buttonText));
-    }
-
-    await tester.pump();
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
 
     expect(find.text(result), findsOneWidget);
   });
@@ -58,13 +47,7 @@ void main() {
 
     String calculationString = '30 - 6 = ';
     final String result = '24';
-    List<String> buttonsToPress = calculationString.replaceAll(' ', '').split('');
-
-    for (var buttonText in buttonsToPress) {
-      await tester.tap(find.text(buttonText));
-    }
-
-    await tester.pump();
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
 
     expect(find.text(result), findsOneWidget);
   });
@@ -74,13 +57,7 @@ void main() {
 
     String calculationString = '100 / 10 =';
     final String result = '10';
-    List<String> buttonsToPress = calculationString.replaceAll(' ', '').split('');
-
-    for (var buttonText in buttonsToPress) {
-      await tester.tap(find.text(buttonText));
-    }
-
-    await tester.pump();
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
 
     expect(find.text(result), findsOneWidget);
   });
@@ -90,13 +67,7 @@ void main() {
 
     String calculationString = '10.50 + 10.25 =';
     final String result = '20.75';
-    List<String> buttonsToPress = calculationString.replaceAll(' ', '').split('');
-
-    for (var buttonText in buttonsToPress) {
-      await tester.tap(find.text(buttonText));
-    }
-
-    await tester.pump();
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
 
     expect(find.text(result), findsOneWidget);
   });
@@ -104,13 +75,7 @@ void main() {
   testWidgets('clears the current calculation correctly', (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
     String calculationString = '20 + 10';
-    List<String> buttonsToPress = calculationString.replaceAll(' ', '').split('');
-
-    for (var buttonText in buttonsToPress) {
-      await tester.tap(find.text(buttonText));
-    }
-
-    await tester.pump();
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
 
     expect(find.text(calculationString), findsOneWidget);
 
@@ -118,5 +83,21 @@ void main() {
     await tester.pump();
 
     expect(find.text(calculationString), findsNothing);
+  });
+
+  testWidgets('multiple operations work', (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    String calculationString = '20 + 10 =';
+    String result = '30';
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
+
+    expect(find.text(result), findsOneWidget);
+
+    calculationString = '30 * 10 =';
+    result = '300';
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
+
+    expect(find.text(result), findsOneWidget);
   });
 }
