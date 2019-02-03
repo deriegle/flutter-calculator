@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'calculator.dart';
 
 class History extends StatelessWidget {
-  History({ @required this.operations });
+  History({@required this.operations});
 
   final List<String> operations;
 
@@ -27,6 +28,17 @@ class History extends StatelessWidget {
           onTap: () {
             Navigator.pop(context, operations[i]);
           },
+          leading: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.red, width: 2.0),
+              borderRadius: BorderRadius.circular(50)
+            ),
+            child: Text(
+              Calculator.parseString(operations[i]),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            padding: EdgeInsets.all(5),
+          ),
         );
       },
     );

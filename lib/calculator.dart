@@ -33,7 +33,7 @@ class Calculations {
 }
 
 class Calculator {
-  String parseString(String text) {
+  static String parseString(String text) {
     List<String> numbersToAdd;
     double a, b, result;
     if (text.contains(Calculations.ADD)) {

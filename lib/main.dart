@@ -29,7 +29,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _calculator = Calculator();
   bool isNewEquation = true;
   List<double> values = [];
   List<String> operations = [];
@@ -69,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (result != null) {
       setState(() {
         isNewEquation = false;
-        calculatorString = _calculator.parseString(result);
+        calculatorString = Calculator.parseString(result);
       });
     }
   }
@@ -90,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     if (buttonText == Calculations.EQUAL) {
-      String newCalculatorString = _calculator.parseString(calculatorString);
+      String newCalculatorString = Calculator.parseString(calculatorString);
 
       return setState(() {
         if (newCalculatorString != calculatorString) {
