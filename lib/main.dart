@@ -14,11 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context)  => MyHomePage(title: 'Calculator'),
-        '/history': (context) => History(),
-      },
+      home: MyHomePage(title: 'Calculator'),
     );
   }
 }
@@ -34,8 +30,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final _calculator = Calculator();
+  bool isNewEquation = true;
   List<double> values = [];
   List<String> operations = [];
+  List<String> calculations = [];
   String calculatorString = '';
 
   @override
@@ -48,9 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
             IconButton(
               icon: Icon(Icons.history),
               onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => History(operations: operations))
-              ),
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => History(operations: calculations))),
             )
           ],
         ),
@@ -79,9 +77,16 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     if (buttonText == Calculations.EQUAL) {
+      String newCalculatorString = _calculator.parseString(calculatorString);
+
       return setState(() {
+        if (newCalculatorString != calculatorString) {
+          calculations.add(calculatorString);
+        }
+
         operations.add(Calculations.EQUAL);
-        calculatorString = _calculator.parseString(calculatorString);
+        calculatorString = newCalculatorString;
+        isNewEquation = false;
       });
     }
 
@@ -92,8 +97,9 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     setState(() {
-      if (operations.length > 0 && operations.last == Calculations.EQUAL) {
+      if (!isNewEquation && operations.length > 0 && operations.last == Calculations.EQUAL) {
         calculatorString = buttonText;
+        isNewEquation = true;
       } else {
         calculatorString += buttonText;
       }
