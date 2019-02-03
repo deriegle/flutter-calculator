@@ -1,12 +1,19 @@
 import 'number-formatter.dart';
 
 class Calculations {
+  static const PERIOD = '.';
   static const MULTIPLY = '*';
   static const SUBTRACT = '-';
   static const ADD = '+';
   static const DIVIDE = '/';
   static const CLEAR = 'CLEAR';
   static const EQUAL = '=';
+  static const OPERATIONS = [
+    Calculations.ADD,
+    Calculations.MULTIPLY,
+    Calculations.SUBTRACT,
+    Calculations.DIVIDE,
+  ];
 
   static double add(double a, double b) {
     return a + b;
@@ -58,5 +65,29 @@ class Calculator {
     }
 
     return NumberFormatter.format(result.toString());
+  }
+
+  static String addPeriod(String calculatorString) {
+    if (calculatorString.isEmpty) {
+      return calculatorString = '0${Calculations.PERIOD}';
+    }
+
+    RegExp exp = new RegExp(r"\d\.");
+    Iterable<Match> matches = exp.allMatches(calculatorString);
+    int maxMatches = Calculator.includesOperation(calculatorString) ? 2 : 1;
+
+    return matches.length == maxMatches
+        ? calculatorString
+        : calculatorString += Calculations.PERIOD;
+  }
+
+  static bool includesOperation(String calculatorString) {
+    for (var operation in Calculations.OPERATIONS) {
+      if (calculatorString.contains(operation)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }

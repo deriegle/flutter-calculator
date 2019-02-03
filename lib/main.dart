@@ -36,29 +36,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: false,
-      ),
-      body: Column(
-        children: <Widget>[
-          NumberDisplay(value: calculatorString),
-          CalculatorButtons(onTap: _onPressed),
-        ],
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      )
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+          centerTitle: false,
+        ),
+        body: Column(
+          children: <Widget>[
+            NumberDisplay(value: calculatorString),
+            CalculatorButtons(onTap: _onPressed),
+          ],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ));
   }
 
   void _onPressed({String buttonText}) {
-    List<String> calculationOperations = [
-      Calculations.ADD,
-      Calculations.SUBTRACT,
-      Calculations.DIVIDE,
-      Calculations.MULTIPLY
-    ];
-
-    if (calculationOperations.contains(buttonText)) {
+    if (Calculations.OPERATIONS.contains(buttonText)) {
       return setState(() {
         operations.add(buttonText);
         calculatorString += " $buttonText ";
@@ -79,13 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
 
-    if (buttonText == '.') {
+    if (buttonText == Calculations.PERIOD) {
       return setState(() {
-        if (calculatorString == '') {
-          calculatorString = '0.';
-        } else {
-          calculatorString += '.';
-        }
+        calculatorString = Calculator.addPeriod(calculatorString);
       });
     }
 
