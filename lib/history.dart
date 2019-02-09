@@ -30,7 +30,7 @@ class History extends StatelessWidget {
           },
           leading: Container(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.red, width: 2.0),
+              border: Border.all(color: Colors.red[800], width: 2.0),
               borderRadius: BorderRadius.circular(50)
             ),
             child: Text(

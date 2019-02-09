@@ -74,6 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _onPressed({String buttonText}) {
+    // Standard mathematical operations
     if (Calculations.OPERATIONS.contains(buttonText)) {
       return setState(() {
         operations.add(buttonText);
@@ -81,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
 
+    // On CLEAR press
     if (buttonText == Calculations.CLEAR) {
       return setState(() {
         operations.add(Calculations.CLEAR);
@@ -88,11 +90,13 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
 
+    // On Equals press
     if (buttonText == Calculations.EQUAL) {
       String newCalculatorString = Calculator.parseString(calculatorString);
 
       return setState(() {
         if (newCalculatorString != calculatorString) {
+          // only add evaluated strings to calculations array
           calculations.add(calculatorString);
         }
 
@@ -109,7 +113,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     setState(() {
-      if (!isNewEquation && operations.length > 0 && operations.last == Calculations.EQUAL) {
+      if (!isNewEquation
+          && operations.length > 0
+          && operations.last == Calculations.EQUAL
+      ) {
         calculatorString = buttonText;
         isNewEquation = true;
       } else {
