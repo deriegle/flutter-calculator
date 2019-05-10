@@ -1,11 +1,15 @@
 class NumberFormatter {
   static String format(String text) {
-    double parsedNumber = double.parse(text);
+    try {
+      double parsedNumber = double.parse(text);
 
-    if ((parsedNumber == parsedNumber.floor()) && (parsedNumber != double.infinity)) {
-      return parsedNumber.truncate().toString();
+      if ((parsedNumber != double.infinity) && (parsedNumber == parsedNumber.floor())) {
+        return parsedNumber.truncate().toString();
+      }
+
+      return text;
+    } catch(err) {
+      return text;
     }
-
-    return text;
   }
 }
