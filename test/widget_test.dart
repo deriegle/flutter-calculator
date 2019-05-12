@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_calculator/calculator.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_calculator/main.dart';
 import 'test_helper.dart';
 
@@ -99,5 +100,25 @@ void main() {
     await TestHelper.pressCalculatorButtons(calculationString, tester);
 
     expect(find.text(result), findsOneWidget);
+  });
+
+  testWidgets('shows correct history when viewing history page', (WidgetTester tester) async {
+    await tester.pumpWidget(MyApp());
+
+    String calculationString = '20 + 10 =';
+    String result = '30';
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
+
+    expect(find.text(result), findsOneWidget);
+
+    calculationString = '30 * 10 =';
+    result = '300';
+    await TestHelper.pressCalculatorButtons(calculationString, tester);
+
+    await tester.tap(find.byIcon(Icons.history));
+
+    await tester.pumpAndSettle();
+
+    expect(find.byType(ListTile), findsNWidgets(2));
   });
 }

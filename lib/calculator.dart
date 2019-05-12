@@ -15,21 +15,10 @@ class Calculations {
     Calculations.DIVIDE,
   ];
 
-  static double add(double a, double b) {
-    return a + b;
-  }
-
-  static double subtract(double a, double b) {
-    return a - b;
-  }
-
-  static double divide(double a, double b) {
-    return a / b;
-  }
-
-  static double multiply(double a, double b) {
-    return a * b;
-  }
+  static double add(double a, double b) => a + b;
+  static double subtract(double a, double b) => a - b;
+  static double divide(double a, double b) => a / b;
+  static double multiply(double a, double b) => a  * b;
 }
 
 class Calculator {
@@ -48,18 +37,18 @@ class Calculator {
       b = double.parse(numbersToAdd[1]);
 
       result = Calculations.multiply(a, b);
-    } else if (text.contains(Calculations.SUBTRACT)) {
-      numbersToAdd = text.split(Calculations.SUBTRACT);
-      a = double.parse(numbersToAdd[0]);
-      b = double.parse(numbersToAdd[1]);
-
-      result = Calculations.subtract(a, b);
     } else if (text.contains(Calculations.DIVIDE)) {
       numbersToAdd = text.split(Calculations.DIVIDE);
       a = double.parse(numbersToAdd[0]);
       b = double.parse(numbersToAdd[1]);
 
       result = Calculations.divide(a, b);
+    } else if (text.contains(Calculations.SUBTRACT)) {
+      numbersToAdd = text.split(Calculations.SUBTRACT);
+      a = double.parse(numbersToAdd[0]);
+      b = double.parse(numbersToAdd[1]);
+
+      result = Calculations.subtract(a, b);
     } else {
       return text;
     }
