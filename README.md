@@ -17,3 +17,6 @@ Let me know if you encounter issues with the calculator
 | --- | --- |
 | ![image](images/calculator.png) | ![history](images/history.png) |
 
+
+
+Hope you liked the app !
